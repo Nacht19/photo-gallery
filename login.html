@@ -1,0 +1,80 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: rgb(187, 178, 162);
+            padding: 40px;
+            border-radius: 10px;
+        }
+        #error {
+            color: #b00;
+            display: none;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm" autocomplete="off">
+        <label>Usuário
+            <input id="username" type="text" required>
+        </label>
+        <label>Senha
+            <input id="password" type="password" required>
+        </label>
+        <button type="submit">Enviar</button>
+        <p id="error" role="alert" aria-live="assertive"></p>
+    </form>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const errorEl = document.getElementById('error');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+
+        function showError(message) {
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+
+        function hideError() {
+            errorEl.style.display = 'none';
+            errorEl.textContent = '';
+        }
+
+        // hide error on input to provide immediate feedback
+        usernameInput.addEventListener('input', hideError);
+        passwordInput.addEventListener('input', hideError);
+
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const user = usernameInput.value.trim();
+            const pass = passwordInput.value;
+
+            // fictitious credentials check
+            if (user === 'admin' && pass === '123') {
+                sessionStorage.setItem('loggedIn', 'true'); // optional
+                sessionStorage.setItem('user', user);
+                window.location.href = 'PhotosGalley-Design.html';
+            } else {
+                showError('Usuário ou senha inválidos.');
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- ...existing code... -->
